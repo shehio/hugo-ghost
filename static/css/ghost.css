@@ -8,20 +8,22 @@
 :root {
   /* Colors - Light Mode */
   --color-bg: #fff;
-  --color-bg-secondary: #f7f7f7;
-  --color-text: #15171a;
+  --color-bg-secondary: #f5f5f5;
+  --color-text: #343f44;
   --color-text-secondary: #738a94;
   --color-text-tertiary: #a0adb4;
-  --color-border: #e6e6e6;
+  --color-border: #e1e5e9;
   --color-border-secondary: #eef0f1;
   --color-heading: #15171a;
-  --color-link: var(--ghost-accent-color, #1a8917);
+  --color-link: var(--ghost-accent-color, #15171a);
   --color-card-bg: #fff;
   --color-card-shadow: rgba(0, 0, 0, 0.04);
-  --color-hero-bg: #f0f2f5;
+  --color-hero-bg: #15171a;
+  --color-hero-text: #ffffff;
+  --color-hero-description: rgba(255, 255, 255, 0.7);
   --color-nav-bg: rgba(255, 255, 255, 0.97);
   --color-code-bg: #f4f5f6;
-  --color-subscribe-bg: #f0f2f5;
+  --color-subscribe-bg: #f5f5f5;
 
   /* Typography */
   --font-serif: Georgia, 'Times New Roman', Times, serif;
@@ -45,15 +47,18 @@
 .dark-mode {
   --color-bg: #15171a;
   --color-bg-secondary: #1d2024;
-  --color-text: #e0e0e0;
+  --color-text: #c5d2d9;
   --color-text-secondary: #a0adb4;
   --color-text-tertiary: #738a94;
   --color-border: #2a2e32;
   --color-border-secondary: #2a2e32;
   --color-heading: #f0f0f0;
+  --color-link: #f0f0f0;
   --color-card-bg: #1d2024;
   --color-card-shadow: rgba(0, 0, 0, 0.12);
-  --color-hero-bg: #1d2024;
+  --color-hero-bg: #0b0c0e;
+  --color-hero-text: #ffffff;
+  --color-hero-description: rgba(255, 255, 255, 0.6);
   --color-nav-bg: rgba(21, 23, 26, 0.97);
   --color-code-bg: #2a2e32;
   --color-subscribe-bg: #1d2024;
@@ -320,14 +325,13 @@ p {
    Homepage Hero
    ========================================================================== */
 .gh-hero {
-  padding-top: 8vmin;
-  padding-bottom: 8vmin;
+  padding-top: 10vmin;
+  padding-bottom: 10vmin;
   background-color: var(--color-hero-bg);
   background-size: cover;
   background-position: center;
-  border-bottom: 1px solid var(--color-border);
-  transition: background-color var(--transition-speed) ease,
-    border-color var(--transition-speed) ease;
+  border-bottom: none;
+  transition: background-color var(--transition-speed) ease;
 }
 
 .gh-hero[style*="background-image"] {
@@ -367,11 +371,12 @@ p {
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 0.3em;
+  color: var(--color-hero-text);
 }
 
 .gh-hero-description {
   font-size: clamp(1.8rem, 2.2vw, 2.2rem);
-  color: var(--color-text-secondary);
+  color: var(--color-hero-description);
   font-weight: 400;
   line-height: 1.5;
   margin: 0;
@@ -396,42 +401,35 @@ p {
   display: flex;
   flex-direction: column;
   background-color: var(--color-card-bg);
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 1px 3px var(--color-card-shadow),
-    0 0 0 1px var(--color-border-secondary);
-  transition: transform 0.2s ease, box-shadow 0.2s ease,
+  transition: opacity 0.2s ease,
     background-color var(--transition-speed) ease;
 }
 
 .gh-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 26px var(--color-card-shadow),
-    0 0 0 1px var(--color-border-secondary);
+  opacity: 0.9;
 }
 
 .gh-card-image {
   display: block;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 4px;
 }
 
 .gh-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.gh-card:hover .gh-card-image img {
-  transform: scale(1.04);
 }
 
 .gh-card-content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 20px 24px 24px;
+  padding: 12px 0 24px;
 }
 
 .gh-card-meta {
@@ -484,8 +482,7 @@ p {
   gap: 4px 8px;
   font-size: 1.3rem;
   color: var(--color-text-tertiary);
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border-secondary);
+  padding-top: 8px;
   margin-top: auto;
 }
 
@@ -661,7 +658,7 @@ p {
 }
 
 .gh-content a {
-  color: var(--color-link);
+  color: var(--color-heading);
   text-decoration: underline;
   text-underline-offset: 2px;
   text-decoration-thickness: 1px;
