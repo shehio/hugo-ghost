@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+<head>
+  {{- partial "head.html" . -}}
+</head>
+<body class="ghost-body">
+  <div class="gh-viewport">
+    {{- partial "header.html" . -}}
+    <main class="gh-main">
+      {{- block "main" . }}{{- end }}
+    </main>
+    {{- partial "footer.html" . -}}
+  </div>
+  <script src="{{ "js/ghost.js" | relURL }}"></script>
+</body>
+</html>

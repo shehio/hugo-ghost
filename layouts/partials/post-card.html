@@ -1,0 +1,37 @@
+{{ $post := . }}
+<article class="gh-card">
+  {{ with $post.Params.image }}
+  <a class="gh-card-image" href="{{ $post.Permalink }}">
+    <img src="{{ . | relURL }}" alt="{{ $post.Title }}" loading="lazy">
+  </a>
+  {{ end }}
+  <div class="gh-card-content">
+    <div class="gh-card-meta">
+      {{ with $post.Params.tags }}
+        {{ range first 1 . }}
+        <a class="gh-card-tag" href="{{ "tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>
+        {{ end }}
+      {{ end }}
+    </div>
+    <h2 class="gh-card-title">
+      <a href="{{ $post.Permalink }}">{{ $post.Title }}</a>
+    </h2>
+    {{ with $post.Description }}
+    <p class="gh-card-excerpt">{{ . }}</p>
+    {{ else }}
+    {{ if $post.Summary }}
+    <p class="gh-card-excerpt">{{ $post.Summary | plainify | truncate 150 }}</p>
+    {{ end }}
+    {{ end }}
+    <div class="gh-card-footer">
+      <span class="gh-card-author">
+        {{ $post.Params.author | default $.Site.Params.author | default "Anonymous" }}
+      </span>
+      <time class="gh-card-date" datetime="{{ $post.Date.Format "2006-01-02" }}">
+        {{ $post.Date.Format "Jan 2, 2006" }}
+      </time>
+      <span class="gh-card-separator">&bull;</span>
+      {{ $words := countwords $post.Content }}{{ $readTime := math.Max 1 (math.Round (div $words 250)) }}<span class="gh-card-readtime">{{ $readTime }} min read</span>
+    </div>
+  </div>
+</article>

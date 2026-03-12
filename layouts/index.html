@@ -1,0 +1,59 @@
+{{ define "main" }}
+{{/* Hero Section */}}
+<section class="gh-hero gh-outer"{{ with .Site.Params.cover_image }} style="background-image: url('{{ . | relURL }}')"{{ end }}>
+  <div class="gh-hero-inner gh-inner">
+    <h1 class="gh-hero-title">{{ .Site.Title }}</h1>
+    {{ with .Site.Params.description }}
+    <p class="gh-hero-description">{{ . }}</p>
+    {{ end }}
+  </div>
+</section>
+
+{{/* Post Feed */}}
+<div class="gh-feed gh-outer">
+  <div class="gh-feed-inner gh-inner">
+    {{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts") }}
+    {{ if not $paginator.Pages }}
+      {{ $paginator = .Paginate .Site.RegularPages }}
+    {{ end }}
+
+    {{ if $paginator.Pages }}
+    <div class="gh-card-grid">
+      {{ range $paginator.Pages }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    </div>
+
+    {{/* Pagination */}}
+    {{ if gt $paginator.TotalPages 1 }}
+    <nav class="gh-pagination">
+      {{ if $paginator.HasPrev }}
+      <a class="gh-pagination-prev" href="{{ $paginator.Prev.URL }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Newer posts
+      </a>
+      {{ else }}
+      <span class="gh-pagination-prev gh-pagination-disabled"></span>
+      {{ end }}
+
+      <span class="gh-pagination-location">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+
+      {{ if $paginator.HasNext }}
+      <a class="gh-pagination-next" href="{{ $paginator.Next.URL }}">
+        Older posts
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      {{ else }}
+      <span class="gh-pagination-next gh-pagination-disabled"></span>
+      {{ end }}
+    </nav>
+    {{ end }}
+    {{ else }}
+    <div class="gh-no-posts">
+      <h2>No posts yet</h2>
+      <p>Check back soon for new content.</p>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

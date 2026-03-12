@@ -1,0 +1,84 @@
+{{ define "main" }}
+<article class="gh-article">
+  {{/* Article Header */}}
+  <header class="gh-article-header gh-outer">
+    <div class="gh-article-header-inner gh-inner">
+      {{ with .Params.tags }}
+      <div class="gh-article-tag">
+        {{ range first 1 . }}
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      <h1 class="gh-article-title">{{ .Title }}</h1>
+
+      {{ with .Description }}
+      <p class="gh-article-excerpt">{{ . }}</p>
+      {{ end }}
+
+      <div class="gh-article-meta">
+        <div class="gh-article-meta-inner">
+          <span class="gh-article-author">
+            {{ .Params.author | default $.Site.Params.author | default "Anonymous" }}
+          </span>
+          <time class="gh-article-date" datetime="{{ .Date.Format "2006-01-02" }}">
+            {{ .Date.Format "Jan 2, 2006" }}
+          </time>
+          <span class="gh-article-separator">&bull;</span>
+          {{ $words := countwords .Content }}{{ $readTime := math.Max 1 (math.Round (div $words 250)) }}<span class="gh-article-readtime">
+            {{ $readTime }} min read
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{/* Feature Image */}}
+  {{ with .Params.image }}
+  <figure class="gh-article-image gh-outer">
+    <div class="gh-article-image-inner gh-inner">
+      <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
+    </div>
+  </figure>
+  {{ end }}
+
+  {{/* Article Body */}}
+  <section class="gh-article-body gh-outer">
+    <div class="gh-article-body-inner gh-inner gh-content">
+      {{ .Content }}
+    </div>
+  </section>
+
+  {{/* Tags */}}
+  {{ with .Params.tags }}
+  <footer class="gh-article-footer gh-outer">
+    <div class="gh-article-footer-inner gh-inner">
+      <div class="gh-article-tags">
+        {{ range . }}
+        <a class="gh-article-tag-link" href="{{ "tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </footer>
+  {{ end }}
+</article>
+
+{{/* Subscribe CTA */}}
+{{ partial "subscribe.html" . }}
+
+{{/* Related Posts */}}
+{{ $related := .Site.RegularPages.Related . | first 3 }}
+{{ with $related }}
+<aside class="gh-related gh-outer">
+  <div class="gh-related-inner gh-inner">
+    <h3 class="gh-related-title">You might also like...</h3>
+    <div class="gh-card-grid">
+      {{ range . }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    </div>
+  </div>
+</aside>
+{{ end }}
+{{ end }}

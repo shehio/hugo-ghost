@@ -1,0 +1,59 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+
+{{/* Meta description */}}
+{{ $description := .Site.Params.description | default .Site.Title }}
+{{ if .IsPage }}
+  {{ $description = .Description | default (.Summary | plainify | truncate 160) }}
+{{ else if .IsSection }}
+  {{ $description = .Description | default (printf "All posts in %s" .Title) }}
+{{ end }}
+<meta name="description" content="{{ $description }}">
+
+{{/* Open Graph */}}
+<meta property="og:title" content="{{ .Title | default .Site.Title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with .Params.image }}
+<meta property="og:image" content="{{ . | absURL }}">
+{{ end }}
+
+{{/* Twitter Card */}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title | default .Site.Title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{ with .Params.image }}
+<meta name="twitter:image" content="{{ . | absURL }}">
+{{ end }}
+
+{{/* Canonical */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* RSS */}}
+{{ range .AlternativeOutputFormats }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
+{{ end }}
+
+{{/* Favicon */}}
+<link rel="icon" type="image/png" href="{{ "favicon.png" | relURL }}">
+
+{{/* Accent color CSS variable */}}
+{{ $accent := .Site.Params.accent_color | default "#1a8917" }}
+<style>:root { --ghost-accent-color: {{ $accent }}; }</style>
+
+{{/* Main CSS */}}
+<link rel="stylesheet" href="{{ "css/ghost.css" | relURL }}">
+
+{{/* Inline script to set dark mode before render to prevent flash */}}
+<script>
+(function() {
+  var theme = localStorage.getItem('ghost-theme');
+  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark-mode');
+  }
+})();
+</script>

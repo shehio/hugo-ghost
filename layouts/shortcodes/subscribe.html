@@ -1,0 +1,18 @@
+{{ $action := .Site.Params.subscribe_action | default "#" }}
+{{ $title := .Get "title" | default (printf "Subscribe to %s" .Site.Title) }}
+{{ $description := .Get "description" | default "Get the latest posts delivered right to your inbox." }}
+<div class="gh-subscribe-shortcode">
+  <div class="gh-subscribe-shortcode-inner">
+    <h3 class="gh-subscribe-title">{{ $title }}</h3>
+    <p class="gh-subscribe-description">{{ $description }}</p>
+    <form class="gh-subscribe-form" action="{{ $action }}" method="post">
+      <div class="gh-subscribe-input-wrapper">
+        <input class="gh-subscribe-input" type="email" name="email" placeholder="Your email address" required aria-label="Your email address">
+        <button class="gh-subscribe-button" type="submit">
+          <span>Subscribe</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

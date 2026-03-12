@@ -1,0 +1,57 @@
+{{ define "main" }}
+<section class="gh-tag-header gh-outer">
+  <div class="gh-tag-header-inner gh-inner">
+    <h1 class="gh-tag-name">{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="gh-tag-description">{{ . }}</p>
+    {{ end }}
+    <span class="gh-tag-count">
+      {{ $count := len .Pages }}
+      {{ $count }} post{{ if ne $count 1 }}s{{ end }}
+    </span>
+  </div>
+</section>
+
+<div class="gh-feed gh-outer">
+  <div class="gh-feed-inner gh-inner">
+    {{ $paginator := .Paginate .Pages }}
+    {{ if $paginator.Pages }}
+    <div class="gh-card-grid">
+      {{ range $paginator.Pages }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    </div>
+
+    {{/* Pagination */}}
+    {{ if gt $paginator.TotalPages 1 }}
+    <nav class="gh-pagination">
+      {{ if $paginator.HasPrev }}
+      <a class="gh-pagination-prev" href="{{ $paginator.Prev.URL }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Newer posts
+      </a>
+      {{ else }}
+      <span class="gh-pagination-prev gh-pagination-disabled"></span>
+      {{ end }}
+
+      <span class="gh-pagination-location">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+
+      {{ if $paginator.HasNext }}
+      <a class="gh-pagination-next" href="{{ $paginator.Next.URL }}">
+        Older posts
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      {{ else }}
+      <span class="gh-pagination-next gh-pagination-disabled"></span>
+      {{ end }}
+    </nav>
+    {{ end }}
+    {{ else }}
+    <div class="gh-no-posts">
+      <h2>No posts found</h2>
+      <p>There are no posts with this tag yet.</p>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

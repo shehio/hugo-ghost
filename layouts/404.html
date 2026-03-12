@@ -1,0 +1,12 @@
+{{ define "main" }}
+<section class="gh-error gh-outer">
+  <div class="gh-error-inner gh-inner">
+    <h1 class="gh-error-code">404</h1>
+    <h2 class="gh-error-title">Page not found</h2>
+    <p class="gh-error-description">
+      Sorry, the page you're looking for doesn't exist or has been moved.
+    </p>
+    <a class="gh-error-link" href="{{ .Site.BaseURL }}">Go to the homepage &rarr;</a>
+  </div>
+</section>
+{{ end }}

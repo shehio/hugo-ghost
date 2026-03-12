@@ -1,0 +1,31 @@
+# Theme metadata
+name = "hugo-ghost"
+license = "MIT"
+licenselink = "https://github.com/shehabyasser/hugo-ghost/blob/master/LICENSE"
+description = "A clean, minimal Hugo theme inspired by Ghost's default Casper theme. Beautiful typography, dark mode, responsive design."
+homepage = "https://github.com/shehabyasser/hugo-ghost"
+tags = ["blog", "minimal", "clean", "responsive", "dark-mode", "ghost", "casper"]
+features = ["dark mode", "responsive", "subscribe form", "reading time", "post cards", "tag pages"]
+min_version = "0.80.0"
+
+[author]
+  name = "Shehab Yasser"
+  homepage = "https://github.com/shehabyasser"
+
+# Theme configuration parameters
+# Add these to your site's config.toml under [params]:
+#
+# [params]
+#   description = "Your site description for the homepage hero"
+#   author = "Your Name"
+#   accent_color = "#1a8917"           # Accent color (default: Ghost green)
+#   subscribe_action = "https://..."   # Form action URL for subscribe form
+#   cover_image = "/images/cover.jpg"  # Optional hero background image
+#
+# [params.social]
+#   twitter = "https://twitter.com/yourhandle"
+#   github = "https://github.com/yourhandle"
+#   facebook = "https://facebook.com/yourpage"
+#   linkedin = "https://linkedin.com/in/yourprofile"
+#   instagram = "https://instagram.com/yourhandle"
+#   email = "you@example.com"
