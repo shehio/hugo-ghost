@@ -31,7 +31,7 @@
         {{ $post.Date.Format "Jan 2, 2006" }}
       </time>
       <span class="gh-card-separator">&bull;</span>
-      {{ $words := countwords $post.Content }}{{ $readTime := math.Max 1 (math.Round (div $words 250)) }}<span class="gh-card-readtime">{{ $readTime }} min read</span>
+      {{ $words := countwords $post.Content }}{{ $readTime := int (math.Max 1 (math.Round (div (float $words) 200.0))) }}<span class="gh-card-readtime">{{ $readTime }} min read</span>
     </div>
   </div>
 </article>
